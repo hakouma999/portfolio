@@ -1,132 +1,79 @@
 import React from "react";
+import { Radar } from "react-chartjs-2";
+
 import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-} from "recharts";
+  Chart as ChartJS,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-const frontdata = [
-  {
-    item: "HTML",
-    A: 4,
-    fullMark: 5,
-    
-  },
-  {
-    item: "CSS/SCSS",
-    A: 4,
-    fullMark: 5,
-  },
-  {
-    item: "JavaScript",
-    A: 3,
-    fullMark: 5,
-  },
-  {
-    item: "jQuery",
-    A: 4,
-    fullMark: 5,
-  },
-  {
-    item: "React",
-    A: 2,
-    fullMark: 5,
-  },
-  {
-    item: "Astro",
-    A: 2,
-    fullMark: 5,
-  }
-];
+ChartJS.register(
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend
+);
 
-const backdata = [
-  {
-    item: "Docker & Docker Compose",
-    A: 3,
-    fullMark: 6,
-  },
-  {
-    item: "Linux",
-    A: 3,
-    fullMark: 6,
-  },
-  {
-    item: "PHP",
-    A: 3,
-    fullMark: 6,
-  },
-  {
-    item: "Mysql(MariaDB)",
-    A: 3,
-    fullMark: 6,
-  },
-  {
-    item: "Nginx",
-    A: 3,
-    fullMark: 6,
-  },
-  {
-    item: "Python",
-    A: 3,
-    fullMark: 6,
-  },
-];
+const frontdata = {
+  labels: ['HTML','CSS/SCSS','JavaScript','jQuery','React','Astro'],
+  datasets: [
+    {
+      label:false,
+      data: [4, 4, 3, 4, 2, 2],
+      backgroundColor: "rgba(37, 157, 159, 0.2)",
+      borderColor: "rgba(31, 124, 126, 1)",
+      borderWidth: 2,
+    },
+  ],
+};
 
-export default function Chart() {
+const backdata = {
+  labels: ['Docker & Docker Compose','Linux','PHP','Mysql(MariaDB)','Nginx','Python'],
+  datasets: [
+    {
+      label:false,
+      data: [3, 3, 3, 3, 3, 3],
+      backgroundColor: "rgba(12, 98, 148,0.2)",
+      borderColor: "rgba(8, 62, 93, 1)",
+      borderWidth: 2,
+    },
+  ],
+};
+
+const options = {
+  scales: {
+    r: {
+      min: 0,
+      max: 5,
+      stepSize: 1,
+    },
+  },
+  plugins:{
+    legend:{
+       display:false
+    }
+ },
+};
+
+function RadarChart() {
   return (
-    <div className="flex skill">
-      <div>
-        <h3>Frontend Skills</h3>
-        <RadarChart
-          outerRadius={150}
-          width={450}
-          height={450}
-          data={frontdata}
-          title="Frontend"
-        >
-          <PolarGrid />
-          <PolarAngleAxis dataKey="item" fill="#fff" />
-          <PolarRadiusAxis
-            domain={[0,5]} 
-            tickCount={6}
-          />
-          <Radar
-            name="Koki Hamada"
-            dataKey="A"
-            stroke="#259d9f"
-            fill="#259d9f"
-            fillOpacity={0.6}
-          />
-        </RadarChart>
+    <div className="flex chart">
+      <div className="chart">
+        <h3>Frontend</h3>
+        <Radar data={frontdata} options={options} />
       </div>
-      <div>
-        <h3>Backend & DevOps Skills</h3>
-        <RadarChart
-            outerRadius={150}
-            width={450}
-            height={450}
-            data={backdata}
-            title="Backend"
-        >
-            <PolarGrid />
-            <PolarAngleAxis dataKey="item"/>
-            <PolarRadiusAxis 
-              domain={[0,5]} 
-              tickCount={6}
-            />
-            <Radar
-              name="Koki Hamada"
-              dataKey="A"
-              stroke="#0c6294"
-              fill="#0c6294"
-              fillOpacity={0.6}
-            />
-        </RadarChart>
+      <div className="chart">
+        <h3>Backend &amp; Dev Ops</h3>
+        <Radar data={backdata} options={options} />
       </div>
-      
-      
-  </div>
+    </div>
   );
 }
+
+export default RadarChart;

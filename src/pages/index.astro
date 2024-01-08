@@ -1,14 +1,19 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Head from "../components/Head.astro"
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import Chart from "../components/chart";
+import RadarChart from "../components/chart.tsx";
+import GithubIcon from "../components/githubicon.tsx"
+import "ress"
 import "../styles/style.scss";
 ---
-<Layout
+<Layout>
+<Head 
+  slot="head" 
   title="Hakouma Portfolio"
-  description="Hakoumaのポートフォリオサイト"
->
+  description="Hakoumaのポートフォリオサイト" 
+/>
 <Header slot="header" />
 <main slot="body">
   <article class="wrapper">
@@ -92,10 +97,9 @@ import "../styles/style.scss";
         <h3>「Hakouma」について</h3>
         <p class="pr">
           学生時代に呼ばれていた渾名「はまこう」のアナグラムのハンドルネームです。
-          同じ読みで舞台や撮影スタジオ等で用いられる「箱馬」という木箱があります。
-          「箱馬」は高さ調整のための台、休憩のための椅子、複数組み合わせて階段を作る等
-          状況に応じて様々な形で仕事を支えます。
-          その「箱馬」と同じように様々な仕事の縁の下の力持ちのような存在になりたいという気持ちをこめて使っています。
+          同じ読みで舞台や撮影スタジオ等で用いられる「箱馬」という木の箱があります。
+          「箱馬」は高さ調整のための台、休憩のための椅子、複数組み合わせて階段を作る等状況に応じて様々な形で仕事を支えます。
+          その「箱馬」と同じようにWEBエンジニアとして様々な仕事の縁の下の力持ちのような存在になりたいという気持ちをこめて使っています。
         </p>
         
 
@@ -104,7 +108,9 @@ import "../styles/style.scss";
     <section id="skills" class="target">
       <h2>Skills</h2>
       <div class="blockWrap">
-        <Chart />
+        <div class="chartWrap">
+          <RadarChart client:only/>
+        </div>
         <h4>チャート内容内訳</h4>
         <ol reversed>
           <li>エキスパートレベルで使うことができると考えているもの</li>
@@ -115,9 +121,12 @@ import "../styles/style.scss";
         </ol>
         <h4>その他業務中で使用していたツール等</h4>
         <ul>
+          <li>Adobe DreamWeaver（テンプレートを用いた開発等、約4年）</li>
           <li>Adobe Photoshop (画像加工等、約4年)</li>
           <li>Adobe illustrator (画像加工等、約4年)</li>
           <li>Adobe XD (画像加工等、約4年)</li>
+          <li>VisualStudioCode（DWのテンプレートを使わない際のエディタ、約4年）</li>
+          <li>Vim（SSH先で他のエディタを使うことができない場合の使用、約4年）</li>
           <li>Google Analytics/Looker Studio (アクセス解析・レポート作成、約2年)</li>
         </ul>
       </div>
@@ -126,6 +135,62 @@ import "../styles/style.scss";
       <h2>Works</h2>
       <div class="blockWrap">
         <h3>主な職務経歴</h3>
+        <div class="textWrap works">
+          <h4>権利の関係上こちらに直接<br class="sp">載せることができないものについて</h4>
+        </div>
+        <dl class="works">
+          <dt>&#9671;不動産会社様が保有するマンション販売サイト制作・保守<br>[2020年4月〜現在]</dt>
+          <dd>
+            <p>
+              ・プロジェクト規模: <br>&emsp;3~5名程度<br>
+              ・役割: <br>&emsp;フロントエンド（バナーの作成・修正等部分的にデザイン作業も行なっています。）<br>
+              ・担当箇所: <br>&emsp;フロントエンド開発、主にJavaScriptが必要になる箇所（モーダルやスライドショー、メニュー部分）を担当。DWT作成や部分修正のためにマークアップ作業もしています。<br>
+              ・使用技術: <br>&emsp;HTML,CSS/SCSS,JavaScript,jQuery,DreamWeaverTemplate,Adobe Photoshop/illustrator/XD,Google Analytics <br>
+              ・こだわっている点: <br>&emsp;あくまでWEBサイトは人とモノを繋ぐための広告ですので、モノの良さを見た人に適切に情報を伝えられるよう華美過ぎず質素すぎない丁度良い見た目・動きとなるように心がけて作業を行っておりました。
+            </p>
+          </dd>
+          <dt>&#9671;不動産会社様が保有するマンション販売サイトの来場予約状況管理システムの開発・保守<br>[2022年6月〜現在]</dt>
+          <dd>
+            <p>
+              ・プロジェクト規模: <br>&emsp;3~5名程度<br>
+              ・役割: <br>&emsp;フロントエンド、バックエンド<br>
+              ・担当箇所: <br>&emsp;バックエンドの設計・開発、フロントエンド開発<br>
+              ・使用技術: <br>&emsp;PHP,Laravel,Livewire,JavaScript,CSS/SCSS,SQLight,WSL,Docker/DockerCompose<br>
+              ・こだわっている点: <br>&emsp;サイトを見る人、システムを管理する人、サイトを保守する人全員にやさしい作りになるように心がけて作成しました。
+              既存のPerl製のフォームとも連携させるためにレンタルサーバ上でLaravel/Livewireで来場予約状況管理WebAPIとそのWebAPI用の管理画面・管理機能を初めて見た人でも操作が可能な形で実現しました。
+              Perl製フォーム側JavaScriptから作成したWebAPIを叩いて来場予約フォームの日程選択の可否を反映してフォームの表示に反映するようにしています。
+            </p>
+          </dd>
+        </dl>
+        <h3>ポートフォリオサイト</h3>
+        <div class="imgWrap works">
+          <img src="/portfolio.webp" alt="ポートフォリオサイトの画像">
+        </div>
+        <h4>ソースコード</h4>
+        <a href="https://github.com/hakouma999/portfolio" target="_blank" rel="noopener noreferer">
+          <div class="icon"><GithubIcon client:only /></div>
+        </a>
+        <h4>技術&amp;環境</h4>
+        <ul class="works">
+          <li>メイン部分をAstro.jsで作成しています。</li>
+          <li>チャート部分でreact-chartjs-2を用いてReact(TypeScript)で作成しています。</li>
+          <li>ヘッダー部分をJavaScriptで作成しています。</li>
+          <li>全部分についてSCSS/CSSで記述しています。</li>
+          <li>WebサーバとしてNginxを使用しています。</li>
+          <li>ドメインを取得してVPSにて構築しています。</li>
+        </ul>
+        <h4>こだわった点・気に入っている点</h4>
+        <p class="works">
+          私が考えていること・行なってきたことをなるべく少ない時間で
+          確認いただけるようにランディングページとして作成しました。
+          文字間の調整と配色をこだわりました。
+          文字間について、どうしても大量の文字情報を載せる必要があったため、少しでも
+          読んでいただく方に読みやすいと思っていただけるように工夫しました。
+          配色についてもライトモード・ダークモードに関わらず読んでいる間に
+          負担にならないようにチカチカする表現についてはできる限り抑えました。
+          気に入っている点としてはヘッダーメニュー部分です。
+          ヘッダーメニュー部分では現在どこのセクションまで読んでいるのかを可視化しました。
+        </p>
       </div>
     </section>
   </article>
