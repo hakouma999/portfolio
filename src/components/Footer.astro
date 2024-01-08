@@ -1,0 +1,33 @@
+---
+---
+<footer>
+    
+</footer>
+<script is:inline>
+    const sections = document.getElementsByTagName("section");
+    const options = {
+        rootMargin: '-15% 0px -85%',
+    }
+
+    const callback = ( entries ) => {
+        entries.forEach( (entry) => {
+            if( entry.isIntersecting ){
+                const currentActiveAnchor = document.querySelector("#menu a.active");
+                if(currentActiveAnchor !== null){
+                    currentActiveAnchor.classList.remove("active");
+                }
+                let targetId = entry.target.id;
+                let imgElement = document.querySelector(`.${targetId}`);
+                
+                const newActiveAnchor = document.querySelector(`#menu a[href='#${entry.target.id}']`);
+                newActiveAnchor.classList.add("active");
+            }
+        });
+    }
+
+    const observer = new IntersectionObserver(callback, options);
+    const targets = document.querySelectorAll(".target");
+    targets.forEach( (target) => {
+        observer.observe(target);
+    })
+</script>
