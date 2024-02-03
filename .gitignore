@@ -26,3 +26,5 @@ src/pages/bk/
 README.md
 
 bk/
+src/pages/index_ver1.astro
+src/components/Header_ver1.astro
